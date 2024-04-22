@@ -5,11 +5,19 @@ export const typeDefs = `#graphql
         name: String!,
         username: String!
         age: Int!,
-        nationality: String!
+        nationality: NationalityCheck!
+        
+        friends: [User!]
     }
 
     type Query{
         users: [User]
         user(id : ID!): User
+    }
+
+    enum NationalityCheck{
+        INDIA
+        AUSTRALIA
+        JAMICA
     }
 `

@@ -12,6 +12,7 @@ let UserList = [
     username: "hitman45",
     age: 34,
     nationality: "INDIA",
+    friends:["3","4"]
   },
   {
     id: "3",
@@ -19,6 +20,7 @@ let UserList = [
     username: "rinku",
     age: 25,
     nationality: "INDIA",
+    friends:["4"]
   },
   {
     id: "4",
@@ -26,6 +28,7 @@ let UserList = [
     username: "king",
     age: 35,
     nationality: "INDIA",
+    friends:["3"]
   },
   {
     id: "5",
