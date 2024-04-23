@@ -49,35 +49,35 @@ let MovieList = [
         id:"1",
         title: "Animal",
         yearOfRelease: 2023,
-        inTheater: false,
+        inTheaters: false,
         languages: ["Hindi","Telugu","Kannada"]
     },
     {
         id:"2",
         title: "Dunki",
         yearOfRelease: 2023,
-        inTheater: true,
+        inTheaters: true,
         languages: ["Hindi"]
     },
     {
         id:"3",
         title: "Sam Bahadur",
         yearOfRelease: 2023,
-        inTheater: false,
+        inTheaters: false,
         languages: ["Hindi"]
     },
     {
         id:"4",
         title: "Salaar",
         yearOfRelease: 2023,
-        inTheater: true,
+        inTheaters: true,
         languages: ["Hindi","Telugu","Kannada","Tamil","Malayalum"]
     },
     {
         id:"5",
         title: "Bade Miyan Chote Miya",
         yearOfRelease: 2024,
-        inTheater: true,
+        inTheaters: true,
         languages: ["Hindi"]
     },
 ]

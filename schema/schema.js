@@ -24,7 +24,7 @@ export const typeDefs = `#graphql
         user(id : ID!): User,
 
         movies: [Movie]
-        movie(title: String!):Movie
+        movie(id: ID!):Movie
     }
 
     enum NationalityCheck{
@@ -38,16 +38,16 @@ export const typeDefs = `#graphql
         updateUser(id: ID!,updateUser : UpdateUserType!) : User
         deleteUser(id: ID!) : [User]
 
-        addNewMovie(newMovie: NewMovieType!): Movie,
-        updateMovie(updateMovie : UpdateMovieType!, name: String!) : [Movie]
-        deleteMovie(name: String!) : [Movie]
+        addNewMovie(newMovie: NewMovieType!): [Movie],
+        updateMovie(updateMovie : UpdateMovieType!, id: ID!) : Movie
+        deleteMovie(id: ID!) : [Movie]
     }
 
     input NewUserType{
         name:String!,
         username:String!,
         age: Int!,
-        nationality: NationalityCheck!
+        nationality: NationalityCheck = INDIA #Default Value
     }
     input UpdateUserType{
         name:String,
