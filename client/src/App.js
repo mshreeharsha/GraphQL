@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {Routes, Route} from 'react-router-dom'
 import HomePage from './pages/HomePage';
 import UsersList from './pages/UsersList';
