@@ -3,6 +3,7 @@ import Layout from "../Components/Layout"
 import { gql, useQuery } from '@apollo/client';
 import UserCard from "../Components/UserCard";
 
+//GraphQL query to fetch all users
 const QUERY_ALL_USERS = gql`
     query getAllUsers{
         users{
@@ -23,17 +24,18 @@ const UsersList = ()=>{
         return(
            <Layout>
             <div className="text-center">
-                Loading...
+                <h1>Loading...</h1>
             </div>
            </Layout>
         )
     }
 
     if(error){
+        console.log(error)
         return(
             <Layout>
                 <div className="text-center">
-                    {error}
+                    <h4 style={{color:"red"}}>Error in Fetching Users List!!</h4>
                 </div>
             </Layout>
         )
