@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../Components/Layout'
 import { useParams } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client';
+import EditModal from '../Components/EditModal';
 
 //GraphQL query to fetch single user details
 const GET_SINGLE_USER = gql`
@@ -16,9 +17,14 @@ const GET_SINGLE_USER = gql`
     }
 `
 
+const buttonStyles = {border:"solid 1px #a30070",backgroundColor:"#ffe0f5",color:"#a30070"}
+
 const SingleUser = () => {
     const params = useParams()
     const {data,loading,error} = useQuery(GET_SINGLE_USER,{variables:{"id":params.id}})
+
+    const [openEditModal,setOpenEditModal] = useState(false)
+    const [openDeleteModal,setOpenDeleteModal] = useState(false)
 
     if(loading){
         return(
@@ -41,16 +47,30 @@ const SingleUser = () => {
         )
     }
 
+    if(openEditModal){
+        return(
+            <EditModal openEditModal={openEditModal} cancelModal={setOpenEditModal} user={data?.user}/>
+        )
+    }
+
   return (
     <Layout>
        <div className='py-2'>
         <h2 className='text-center' style={{color:"#a30070"}}>User Profile</h2>
-         <div className='rounded-2 p-4 mx-auto my-5' style={{border: "solid 2px #f6009c",backgroundColor:"#F6F5F2", width:"50%"}}>
+         <div className='rounded-2 p-4 py-2 mx-auto my-5' style={{border: "solid 2px #f6009c",backgroundColor:"#F6F5F2", width:"50%"}}>
             <h3 className='text-center pb-2'>{data?.user.name}</h3>
             <div style={{lineHeight: "0.7"}}>
                 <p>UserName : <b>{data?.user.username}</b></p>
                 <p>Age : {data?.user.age}</p>
                 <p>Nationality : {data?.user.nationality}</p>
+            </div>
+            <div className='d-flex flex-row justify-content-end g-2'>
+                <button type="button" className='mx-2 rounded-2' style={buttonStyles}
+                onClick={()=>setOpenEditModal(true)}
+                ><b>Edit</b></button>
+                <button type="button" className='mx-2 rounded-2' 
+                style={buttonStyles} 
+                onClick={()=>setOpenDeleteModal(true)}><b>Delete</b></button>
             </div>
         </div>
        </div>
