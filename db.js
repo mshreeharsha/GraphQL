@@ -5,7 +5,6 @@ let UserList = [
     username: "pushpa",
     age: 36,
     nationality: "AUSTRALIA",
-    favouriteMovies:["Animal","Dunki"]
   },
   {
     id: "2",

@@ -12,7 +12,15 @@ const GET_SINGLE_USER = gql`
             name,
             username,
             age,
-            nationality
+            nationality,
+            friends{
+                id,
+                name
+            },
+            favouriteMovies{
+                id,
+                title
+            }
         }
     }
 `
@@ -21,7 +29,7 @@ const buttonStyles = {border:"solid 1px #a30070",backgroundColor:"#ffe0f5",color
 
 const SingleUser = () => {
     const params = useParams()
-    const {data,loading,error} = useQuery(GET_SINGLE_USER,{variables:{"id":params.id}})
+    const {data,loading,error,refetch} = useQuery(GET_SINGLE_USER,{variables:{"id":params.id}})
 
     const [openEditModal,setOpenEditModal] = useState(false)
     const [openDeleteModal,setOpenDeleteModal] = useState(false)
@@ -49,7 +57,7 @@ const SingleUser = () => {
 
     if(openEditModal){
         return(
-            <EditModal openEditModal={openEditModal} cancelModal={setOpenEditModal} user={data?.user}/>
+            <EditModal openEditModal={openEditModal} cancelModal={setOpenEditModal} user={data?.user} refetch={refetch}/>
         )
     }
 
@@ -59,10 +67,22 @@ const SingleUser = () => {
         <h2 className='text-center' style={{color:"#a30070"}}>User Profile</h2>
          <div className='rounded-2 p-4 py-2 mx-auto my-5' style={{border: "solid 2px #f6009c",backgroundColor:"#F6F5F2", width:"50%"}}>
             <h3 className='text-center pb-2'>{data?.user.name}</h3>
-            <div style={{lineHeight: "0.7"}}>
+            <div style={{lineHeight: "1.0"}}>
                 <p>UserName : <b>{data?.user.username}</b></p>
                 <p>Age : {data?.user.age}</p>
                 <p>Nationality : {data?.user.nationality}</p>
+                {data?.user.friends.length > 0 && <><p>Friends : </p>
+                <ul>
+                    {data?.user.friends?.map((friend)=>(
+                        <li><i>{friend.name}</i></li>
+                    ))}
+                </ul></>}
+                {data?.user.favouriteMovies.length > 0 && <><p>Favourite Movies : </p>
+                <ul>
+                    {data?.user.favouriteMovies?.map((movie)=>(
+                        <li key={movie.id}><i>{movie.title}</i></li>
+                    ))}
+                </ul></>}
             </div>
             <div className='d-flex flex-row justify-content-end g-2'>
                 <button type="button" className='mx-2 rounded-2' style={buttonStyles}

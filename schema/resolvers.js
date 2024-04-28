@@ -69,10 +69,10 @@ export const resolvers = {
     
     User:{
         friends(parent){
-            return db.UserList.filter((user)=>parent.friends.includes(user.id))
+            return db.UserList.filter((user)=>parent.friends?.includes(user.id))
         },
         favouriteMovies(parent){
-            return db.MovieList.filter((movie)=>parent.favouriteMovies.includes(movie.title))
+            return db.MovieList.filter((movie)=>parent.favouriteMovies?.includes(movie.title))
         }
     }
 }

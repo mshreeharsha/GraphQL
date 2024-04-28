@@ -11,7 +11,15 @@ const QUERY_ALL_USERS = gql`
             name,
             username,
             age,
-            nationality
+            nationality,
+            friends{
+                id,
+                name
+            },
+            favouriteMovies{
+                id,
+                title
+            }
         }
     }
 `
@@ -31,7 +39,7 @@ const UsersList = ()=>{
     }
 
     if(error){
-        console.log(error)
+        console.log(error.message)
         return(
             <Layout>
                 <div className="text-center">
