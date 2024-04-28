@@ -40,6 +40,13 @@ export const resolvers = {
             return db.UserList.find((user)=>user.id === args.id)
         },
         deleteUser(_,args){
+            const userId = args.id
+            db.UserList = db.UserList.map((user)=>{
+                if(user.id !== userId && user.friends?.length > 0){
+                    user.friends = user.friends.filter((friend)=>friend.id !== userId)
+                }
+                return user
+            })
             return db.UserList = db.UserList.filter((user)=> user.id !== args.id)
         },
 

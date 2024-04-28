@@ -4,7 +4,7 @@ import { gql, useQuery } from '@apollo/client';
 import UserCard from "../Components/UserCard";
 
 //GraphQL query to fetch all users
-const QUERY_ALL_USERS = gql`
+export const QUERY_ALL_USERS = gql`
     query getAllUsers{
         users{
             id,

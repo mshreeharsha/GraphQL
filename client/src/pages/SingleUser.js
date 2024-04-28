@@ -3,6 +3,7 @@ import Layout from '../Components/Layout'
 import { useParams } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client';
 import EditModal from '../Components/EditModal';
+import DeleteModal from '../Components/DeleteModal';
 
 //GraphQL query to fetch single user details
 const GET_SINGLE_USER = gql`
@@ -58,6 +59,12 @@ const SingleUser = () => {
     if(openEditModal){
         return(
             <EditModal openEditModal={openEditModal} cancelModal={setOpenEditModal} user={data?.user} refetch={refetch}/>
+        )
+    }
+
+    if(openDeleteModal){
+        return(
+            <DeleteModal openDeleteModal={openDeleteModal} cancelModal={setOpenDeleteModal} id={params.id}/>
         )
     }
 
