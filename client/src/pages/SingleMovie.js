@@ -3,6 +3,7 @@ import Layout from '../Components/Layout'
 import { gql, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import EditMovieModal from '../Components/EditMovieModal';
+import DeleteMovieModal from '../Components/DeleteMovieModal';
 
 //GraphQL query to fetch single movie details
 const GET_SINGLE_MOVIE = gql`
@@ -51,6 +52,11 @@ const SingleMovie = () => {
     if(openEditModal){
         return (
             <EditMovieModal openEditModal={openEditModal} cancelModal={setOpenEditModal} refetch={refetch} movie={data?.movie}/>
+        )
+    }
+    if(openDeleteModal){
+        return (
+            <DeleteMovieModal openDeleteModal={openDeleteModal} cancelModal={setOpenDeleteModal} id={params.id} title={data?.movie.title}/>
         )
     }
 

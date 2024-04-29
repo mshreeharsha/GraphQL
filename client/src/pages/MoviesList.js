@@ -5,7 +5,7 @@ import MovieCard from '../Components/MovieCard';
 import AddMovieModal from '../Components/AddMovieModal';
 
 //GraphQL query to fetch all movies
-const GET_ALL_MOVIES = gql`
+export const GET_ALL_MOVIES = gql`
     query getAllMovies{
         movies{
             id,

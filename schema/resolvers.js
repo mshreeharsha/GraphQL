@@ -70,6 +70,12 @@ export const resolvers = {
             return db.MovieList.find((movie)=> movie.id === args.id)
         },
         deleteMovie(_,args){
+            db.UserList = db.UserList.map((user)=>{
+                if(user.favouriteMovies?.length >0){
+                    user.favouriteMovies = user.favouriteMovies.filter((movie)=> movie.id !== args.id)
+                }
+                return user
+            })
             return db.MovieList = db.MovieList.filter((movie)=> movie.id !== args.id)
         }
     },
