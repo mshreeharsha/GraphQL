@@ -47,7 +47,9 @@ export const typeDefs = `#graphql
         name:String!,
         username:String!,
         age: Int!,
-        nationality: NationalityCheck = INDIA #Default Value
+        nationality: String! = INDIA #Default Value
+        friends:[ID!],
+        favouriteMovies:[ID!]
     }
     input UpdateUserType{
         name:String,
