@@ -95,7 +95,7 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
     <div className='outerModalContainer' onClick={handleClick}>
       <div className='innerModalContainer'>
         {data ? <div className='text-center' style={{color: "#65B741"}}>
-            <b>User Updated Successfully!!</b>
+            <b>User Added Successfully!!</b>
         </div>:<></>}
         {error ? <div className='text-center' style={{color: "#FF6363"}}>
             <b>{error.message}</b>
@@ -144,7 +144,6 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="box1" value={user.id} 
                             onChange={handleFriendsSelection}
-                            checked={selectedFriends?.includes(user.id)}
                         />
                         <label className="form-check-label" htmlFor="box1">{user.name}</label>
                     </div>
@@ -156,7 +155,6 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="box1" value={movie.id} 
                             onChange={handleMoviesSelection}
-                            checked={selectedMovies?.includes(movie.id)}
                         />
                         <label className="form-check-label" htmlFor="box1">{movie.title}</label>
                     </div>

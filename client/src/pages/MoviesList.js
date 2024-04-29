@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../Components/Layout'
 import { gql, useQuery } from '@apollo/client';
 import MovieCard from '../Components/MovieCard';
+import AddMovieModal from '../Components/AddMovieModal';
 
 //GraphQL query to fetch all movies
 const GET_ALL_MOVIES = gql`
@@ -18,7 +19,9 @@ const GET_ALL_MOVIES = gql`
 
 const MoviesList = () => {
 
-    const {data,loading,error} = useQuery(GET_ALL_MOVIES)
+    const {data,loading,error,refetch} = useQuery(GET_ALL_MOVIES)
+
+    const [openAddModal,setOpenAddModal] = useState(false)
 
     if(loading){
         return(
@@ -41,10 +44,19 @@ const MoviesList = () => {
         )
     }
 
+    if(openAddModal){
+        return(
+            <AddMovieModal openAddModal={openAddModal} cancelModal={setOpenAddModal} refetch={refetch} />
+        )
+    }
+
   return (
     <Layout>
         <div>
-            <h1 className="text-center" style={{"color":"#a30070"}}>Movies List</h1>
+            <div className='d-flex flex-row justify-content-center align-items-center'>
+                <h1 className="text-center mx-4" style={{"color":"#a30070"}}>Movies List</h1>
+                <button className='btn btn-warning' onClick={()=>setOpenAddModal(true)} ><b>Add Movie</b></button>
+            </div>
             <div className="container mx-auto py-4" style={{width:"70%"}}>
                     <div className="row g-3">
                         {data.movies.map((movie)=>(

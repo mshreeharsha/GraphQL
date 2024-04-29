@@ -15,7 +15,7 @@ const MovieCard = ({movie}) => {
                     <li><i>{lang}</i></li>
                  ))}
             </ul>
-            <p>Currently in Threaters : <b>{movie.inThreaters? "YES":"NO"}</b></p>
+            <p>Currently in Theaters : <b>{movie.inTheaters ? "YES":"NO"}</b></p>
         </div>
     </div>
     </>
