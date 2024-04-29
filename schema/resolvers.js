@@ -79,7 +79,7 @@ export const resolvers = {
             return db.UserList.filter((user)=>parent.friends?.includes(user.id))
         },
         favouriteMovies(parent){
-            return db.MovieList.filter((movie)=>parent.favouriteMovies?.includes(movie.title))
+            return db.MovieList.filter((movie)=>parent.favouriteMovies?.includes(movie.id))
         }
     }
 }

@@ -53,7 +53,9 @@ export const typeDefs = `#graphql
         name:String,
         username: String,
         age:Int,
-        Nationality: NationalityCheck
+        Nationality: NationalityCheck,
+        friends:[ID!],
+        favouriteMovies:[ID!]
     }
 
     input NewMovieType{

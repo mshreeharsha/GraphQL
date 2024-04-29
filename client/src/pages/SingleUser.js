@@ -78,18 +78,18 @@ const SingleUser = () => {
                 <p>UserName : <b>{data?.user.username}</b></p>
                 <p>Age : {data?.user.age}</p>
                 <p>Nationality : {data?.user.nationality}</p>
-                {data?.user.friends.length > 0 && <><p>Friends : </p>
+                {data?.user.friends.length > 0 ? <><p>Friends : </p>
                 <ul>
                     {data?.user.friends?.map((friend)=>(
                         <li><i>{friend.name}</i></li>
                     ))}
-                </ul></>}
-                {data?.user.favouriteMovies.length > 0 && <><p>Favourite Movies : </p>
+                </ul></>:<><p>Friends : Not Yet!!</p></>}
+                {data?.user.favouriteMovies.length > 0 ? <><p>Favourite Movies : </p>
                 <ul>
                     {data?.user.favouriteMovies?.map((movie)=>(
                         <li key={movie.id}><i>{movie.title}</i></li>
                     ))}
-                </ul></>}
+                </ul></>:<><p>Favourite Movies : No Data Available!!</p></>}
             </div>
             <div className='d-flex flex-row justify-content-end g-2'>
                 <button type="button" className='mx-2 rounded-2' style={buttonStyles}

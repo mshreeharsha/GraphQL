@@ -44,8 +44,12 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
     const [selectedMovies,setSelectedMovies] = useState(movies)
 
     const {data,loading,error} = useQuery(ALL_USERS)
+    const allUsers = data?.users.filter((u)=>u.id !== user.id)
+
     const [handleSubmit,{data:updateData,error:updateUserError}] = useMutation(UPDATE_USER)
     const {data:movieData} = useQuery(ALL_MOVIES)
+
+    const isMissing = !name || !age || !userName
 
     const handleClick= (e)=>{
         if(e.target === e.currentTarget){
@@ -65,7 +69,7 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
         }
     }
 
-    //Hnadle Selection of Movies
+    //Handle Selection of Movies
     const handleMoviesSelection = (e)=>{
         const movieId = e.target.value;
         const isChecked = e.target.checked;
@@ -87,6 +91,8 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
         </div>:<></>}
         {error ? <div className='text-center' style={{color: "#FF6363"}}>
             <b>{error.message}</b>
+        </div>:isMissing? <div className='text-center' style={{color: "#FF6363"}}>
+            <b>Fields must not be empty!!</b>
         </div>:<></>}
         {updateUserError ? <div className='text-center' style={{color: "#FF6363"}}>
             <b>{updateUserError.message}</b>
@@ -120,7 +126,7 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
             </div>
             <label>Friends : </label>
             <div className='py-2'>
-                {data?.users.map((user)=>(
+                {allUsers.map((user)=>(
                     <div className="form-check form-check-inline">
                         <input className="form-check-input" type="checkbox" id="box1" value={user.id} 
                             onChange={handleFriendsSelection}
@@ -142,10 +148,17 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
                     </div>
                 ))}
             </div>
-            <button type='button' onClick={()=>{handleSubmit(
+            <button type='button' disabled={isMissing} onClick={()=>{handleSubmit(
                 {variables:
                     {
-                        "updateUser":{"name":name,"username":userName,"age":Number(age)},
+                        "updateUser":
+                        {
+                            "name":name,
+                            "username":userName,
+                            "age":Number(age),
+                            "friends":selectedFriends,
+                            "favouriteMovies":selectedMovies
+                        },
                         "id":user.id
                     }})
                     refetch();

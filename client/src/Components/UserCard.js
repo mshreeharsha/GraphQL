@@ -11,18 +11,6 @@ const UserCard = ({user}) => {
             <p>UserName : <b>{user.username}</b></p>
             <p>Age : {user.age}</p>
             <p>Nationality : {user.nationality}</p>
-            {user.friends.length > 0 && <><p>Friends : </p>
-            <ul>
-                 {user.friends?.map((friend)=>(
-                    <li key={friend.id}><i>{friend.name}</i></li>
-                 ))}
-            </ul></>}
-            {user.favouriteMovies.length > 0 && <><p>Favourite Movies : </p>
-            <ul>
-                 {user.favouriteMovies?.map((movie)=>(
-                    <li key={movie.id}><i>{movie.title}</i></li>
-                 ))}
-            </ul></>}
         </div>
     </div>
     </>

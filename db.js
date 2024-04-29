@@ -5,6 +5,7 @@ let UserList = [
     username: "pushpa",
     age: 36,
     nationality: "AUSTRALIA",
+    favouriteMovies:["1"]
   },
   {
     id: "2",
@@ -13,7 +14,7 @@ let UserList = [
     age: 34,
     nationality: "INDIA",
     friends:["3","4"],
-    favouriteMovies:["Dunki","Salaar"]
+    favouriteMovies:["2","4"]
   },
   {
     id: "3",
@@ -22,7 +23,7 @@ let UserList = [
     age: 25,
     nationality: "INDIA",
     friends:["4"],
-    favouriteMovies:["Bade Miyan Chote Miya"]
+    favouriteMovies:["5"]
   },
   {
     id: "4",
@@ -31,15 +32,14 @@ let UserList = [
     age: 35,
     nationality: "INDIA",
     friends:["3"],
-    favouriteMovies:["Sam Bahadur","Bade Miyan Chote Miya"]
+    favouriteMovies:["3","5"]
   },
   {
     id: "5",
     name: "Chris Gayle",
     username: "Boss",
     age: 42,
-    nationality: "JAMICA",
-    favouriteMovies:["Animal","Dunki","Bade Miyan Chote Miya","Salaar"]
+    nationality: "JAMICA"
   },
 ];
 
