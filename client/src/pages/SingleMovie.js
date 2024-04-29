@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../Components/Layout'
 import { gql, useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+import EditMovieModal from '../Components/EditMovieModal';
 
 //GraphQL query to fetch single movie details
 const GET_SINGLE_MOVIE = gql`
@@ -16,10 +17,15 @@ const GET_SINGLE_MOVIE = gql`
     }
 `
 
+const buttonStyles = {border:"solid 1px #a30070",backgroundColor:"#ffe0f5",color:"#a30070"}
+
 const SingleMovie = () => {
     const params = useParams()
 
-    const {data,loading,error} = useQuery(GET_SINGLE_MOVIE,{variables:{"id":params.id}})
+    const {data,loading,error,refetch} = useQuery(GET_SINGLE_MOVIE,{variables:{"id":params.id}})
+
+    const [openEditModal,setOpenEditModal] = useState(false)
+    const [openDeleteModal,setOpenDeleteModal] = useState(false)
 
     if(loading){
         return(
@@ -42,6 +48,12 @@ const SingleMovie = () => {
         )
     }
 
+    if(openEditModal){
+        return (
+            <EditMovieModal openEditModal={openEditModal} cancelModal={setOpenEditModal} refetch={refetch} movie={data?.movie}/>
+        )
+    }
+
   return (
     <Layout>
         <div className='py-2'>
@@ -56,7 +68,15 @@ const SingleMovie = () => {
                         <li><i>{lang}</i></li>
                     ))}
                 </ul>
-                <p>Currently in Threaters : <b>{data?.movie.inThreaters? "YES":"NO"}</b></p>
+                <p>Currently in Threaters : <b>{data?.movie.inTheaters? "YES":"NO"}</b></p>
+            </div>
+            <div className='d-flex flex-row justify-content-end g-2'>
+                <button type="button" className='mx-2 rounded-2' style={buttonStyles}
+                onClick={()=>setOpenEditModal(true)}
+                ><b>Edit</b></button>
+                <button type="button" className='mx-2 rounded-2' 
+                style={buttonStyles} 
+                onClick={()=>setOpenDeleteModal(true)}><b>Delete</b></button>
             </div>
         </div>
        </div>
