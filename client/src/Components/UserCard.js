@@ -6,7 +6,7 @@ const UserCard = ({user}) => {
     <>
     <div className="col-1"></div>
     <div className='col-5 rounded-2 p-4' style={{border: "solid 2px #f6009c",backgroundColor:"#F6F5F2"}}>
-        <h3 className='text-center pb-2'><Link to={`/user/${user.id}`} key={user.id} style={{textDecoration: "none",color:"inherit"}}>{user.name}</Link></h3>
+        <h3 className='text-center pb-2'><Link to={`/user/${user._id}`} key={user._id} style={{textDecoration: "none",color:"inherit"}}>{user.name}</Link></h3>
         <div style={{lineHeight: "1.0"}}>
             <p>UserName : <b>{user.username}</b></p>
             <p>Age : {user.age}</p>

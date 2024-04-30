@@ -6,7 +6,7 @@ import { QUERY_ALL_USERS } from '../pages/UsersList'
 const DELETE_USER = gql`
     mutation deleteUser($id:ID!){
         deleteUser(id:$id){
-            id
+            _id
         }
     }
 `

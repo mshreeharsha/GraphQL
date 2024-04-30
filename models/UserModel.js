@@ -21,14 +21,14 @@ const userSchema = new mongoose.Schema({
         required:true
     },
     friends:{
-        type:mongoose.ObjectId,
+        type:[mongoose.ObjectId],
         ref: 'User'
     },
     favouriteMovies:{
-        type:mongoose.ObjectId,
+        type:[mongoose.ObjectId],
         ref:'Movie'
     }
 },{timestamps:true})
 
-const UserModel = mongoose.model(userSchema,'User')
+const UserModel = mongoose.model('User',userSchema)
 export default UserModel

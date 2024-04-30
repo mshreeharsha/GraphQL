@@ -9,17 +9,17 @@ import { useState } from "react";
 export const QUERY_ALL_USERS = gql`
     query getAllUsers{
         users{
-            id,
+            _id,
             name,
             username,
             age,
             nationality,
             friends{
-                id,
+                _id,
                 name
             },
             favouriteMovies{
-                id,
+                _id,
                 title
             }
         }
@@ -28,7 +28,7 @@ export const QUERY_ALL_USERS = gql`
 
 const UsersList = ()=>{
 
-    const {data, loading, error, refetch} = useQuery(QUERY_ALL_USERS)
+    const {data, loading, error} = useQuery(QUERY_ALL_USERS)
 
     const [openAddModal,setOpenAddModal] = useState(false)
 
@@ -55,7 +55,7 @@ const UsersList = ()=>{
 
     if(openAddModal){
         return(
-            <AddUserModal openAddModal={openAddModal} cancelModal={setOpenAddModal} refetch={refetch}/>
+            <AddUserModal openAddModal={openAddModal} cancelModal={setOpenAddModal}/>
         )
     }
     console.log(data?.users)

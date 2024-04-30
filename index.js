@@ -1,7 +1,8 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
-import { resolvers } from "./schema/resolvers.js";
+// import { resolvers } from "./schema/resolvers.js";
+import { resolvers } from "./schema/resolversWithDB.js";
 import { typeDefs } from "./schema/schema.js";
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'

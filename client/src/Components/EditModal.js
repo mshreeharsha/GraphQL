@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 const ALL_USERS = gql`
     query getUsers{
         users{
-            id,
+            _id,
             name
         }
     }
@@ -13,7 +13,7 @@ const ALL_USERS = gql`
 const ALL_MOVIES = gql`
     query getAllMovies{
         movies{
-            id,
+            _id,
             title
         }
     }
@@ -22,7 +22,7 @@ const ALL_MOVIES = gql`
 const UPDATE_USER = gql`
     mutation updateUser($updateUser: UpdateUserType!, $id:ID!){
         updateUser(updateUser : $updateUser,id:$id){
-            id,
+            _id,
             name,
             username,
             age,
@@ -40,11 +40,11 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
     const friends = user?.friends.map((friend)=>(friend.id))
     const [selectedFriends,setSelectedFriends] = useState(friends)
 
-    const movies = user?.favouriteMovies.map((movie)=>(movie.id))
+    const movies = user?.favouriteMovies.map((movie)=>(movie._id))
     const [selectedMovies,setSelectedMovies] = useState(movies)
 
     const {data,loading,error} = useQuery(ALL_USERS)
-    const allUsers = data?.users.filter((u)=>u.id !== user.id)
+    const allUsers = data?.users.filter((u)=>u._id !== user._id)
 
     const [handleSubmit,{data:updateData,error:updateUserError}] = useMutation(UPDATE_USER)
     const {data:movieData} = useQuery(ALL_MOVIES)
@@ -126,11 +126,11 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
             </div>
             <label>Friends : </label>
             <div className='py-2'>
-                {allUsers.map((user)=>(
+                {allUsers?.map((user)=>(
                     <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" id="box1" value={user.id} 
+                        <input className="form-check-input" type="checkbox" id="box1" value={user._id} 
                             onChange={handleFriendsSelection}
-                            checked={selectedFriends?.includes(user.id)}
+                            checked={selectedFriends?.includes(user._id)}
                         />
                         <label className="form-check-label" htmlFor="box1">{user.name}</label>
                     </div>
@@ -140,9 +140,9 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
             <div>
                 {movieData?.movies.map((movie)=>(
                     <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" id="box1" value={movie.id} 
+                        <input className="form-check-input" type="checkbox" id="box1" value={movie._id} 
                             onChange={handleMoviesSelection}
-                            checked={selectedMovies?.includes(movie.id)}
+                            checked={selectedMovies?.includes(movie._id)}
                         />
                         <label className="form-check-label" htmlFor="box1">{movie.title}</label>
                     </div>
@@ -159,7 +159,7 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
                             "friends":selectedFriends,
                             "favouriteMovies":selectedMovies
                         },
-                        "id":user.id
+                        "id":user._id
                     }})
                     refetch();
                 }} 

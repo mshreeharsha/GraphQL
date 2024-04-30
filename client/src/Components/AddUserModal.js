@@ -1,10 +1,11 @@
 import { gql, useMutation, useQuery } from '@apollo/client'
 import React, { useState } from 'react'
+import { QUERY_ALL_USERS } from '../pages/UsersList'
 
 const ADD_NEW_USER = gql`
     mutation addNewUser($newUser : NewUserType!){
         addNewUser(newUser : $newUser){
-            id
+            _id
         }
     }
 `
@@ -12,7 +13,7 @@ const ADD_NEW_USER = gql`
 const GET_ALL_USERS = gql`
     query getAllUsers{
         users{
-            id,
+            _id,
             name
         }
     }
@@ -21,7 +22,7 @@ const GET_ALL_USERS = gql`
 const GET_ALL_MOVIES = gql`
     query getAllMovies{
         movies{
-            id,
+            _id,
             title
         }
     }
@@ -29,7 +30,7 @@ const GET_ALL_MOVIES = gql`
 
 const Nationality = ["INDIA","AUSTRALIA","JAMICA"]
 
-const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
+const AddUserModal = ({openAddModal,cancelModal}) => {
 
     const [name,setName] = useState('')
     const [userName,setUserName] = useState('')
@@ -46,7 +47,9 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
     })
 
     //Add user Mutation
-    const [handleSubmit,{data,loading,error}] = useMutation(ADD_NEW_USER)
+    const [handleSubmit,{data,loading,error}] = useMutation(ADD_NEW_USER,{
+        refetchQueries:[QUERY_ALL_USERS]
+    })
 
     //fetching all movies and all users
     const {data:movieData} = useQuery(GET_ALL_MOVIES)
@@ -140,9 +143,9 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
             </div>
             <label>Friends : </label>
             <div className='py-2'>
-                {allUsers?.users.map((user)=>(
+                {allUsers?.users?.map((user)=>(
                     <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" id="box1" value={user.id} 
+                        <input className="form-check-input" type="checkbox" id="box1" value={user._id} 
                             onChange={handleFriendsSelection}
                         />
                         <label className="form-check-label" htmlFor="box1">{user.name}</label>
@@ -151,9 +154,9 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
             </div>
             <label>Favourite Movies : </label>
             <div>
-                {movieData?.movies.map((movie)=>(
+                {movieData?.movies?.map((movie)=>(
                     <div className="form-check form-check-inline">
-                        <input className="form-check-input" type="checkbox" id="box1" value={movie.id} 
+                        <input className="form-check-input" type="checkbox" id="box1" value={movie._id} 
                             onChange={handleMoviesSelection}
                         />
                         <label className="form-check-label" htmlFor="box1">{movie.title}</label>
@@ -173,7 +176,6 @@ const AddUserModal = ({openAddModal,cancelModal, refetch}) => {
                             "favouriteMovies":selectedMovies
                         }
                     }})
-                    refetch();
                 }} 
                 className='btn btn-info my-2'>Add</button>
         </form>

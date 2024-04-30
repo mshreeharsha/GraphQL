@@ -9,17 +9,17 @@ import DeleteModal from '../Components/DeleteModal';
 const GET_SINGLE_USER = gql`
     query getSingleUser($id : ID!){
         user(id : $id){
-            id,
+            _id,
             name,
             username,
             age,
             nationality,
             friends{
-                id,
+                _id,
                 name
             },
             favouriteMovies{
-                id,
+                _id,
                 title
             }
         }
@@ -78,16 +78,16 @@ const SingleUser = () => {
                 <p>UserName : <b>{data?.user.username}</b></p>
                 <p>Age : {data?.user.age}</p>
                 <p>Nationality : {data?.user.nationality}</p>
-                {data?.user.friends.length > 0 ? <><p>Friends : </p>
+                {data?.user?.friends?.length > 0 ? <><p>Friends : </p>
                 <ul>
-                    {data?.user.friends?.map((friend)=>(
-                        <li><i>{friend.name}</i></li>
+                    {data?.user?.friends?.map((friend)=>(
+                        <li key={friend._id}><i>{friend.name}</i></li>
                     ))}
                 </ul></>:<><p>Friends : Not Yet!!</p></>}
-                {data?.user.favouriteMovies.length > 0 ? <><p>Favourite Movies : </p>
+                {data?.user?.favouriteMovies.length > 0 ? <><p>Favourite Movies : </p>
                 <ul>
-                    {data?.user.favouriteMovies?.map((movie)=>(
-                        <li key={movie.id}><i>{movie.title}</i></li>
+                    {data?.user?.favouriteMovies?.map((movie)=>(
+                        <li key={movie._id}><i>{movie.title}</i></li>
                     ))}
                 </ul></>:<><p>Favourite Movies : No Data Available!!</p></>}
             </div>

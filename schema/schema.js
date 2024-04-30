@@ -1,7 +1,7 @@
 
 export const typeDefs = `#graphql
     type User{
-        id: ID!,
+        _id: ID!,
         name: String!,
         username: String!
         age: Int!,
@@ -12,7 +12,7 @@ export const typeDefs = `#graphql
     }
 
     type Movie{
-        id: ID!,
+        _id: ID!,
         title: String!,
         yearOfRelease: Int!,
         inTheaters: Boolean!,
