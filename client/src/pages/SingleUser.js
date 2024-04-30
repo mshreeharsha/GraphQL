@@ -6,7 +6,7 @@ import EditModal from '../Components/EditModal';
 import DeleteModal from '../Components/DeleteModal';
 
 //GraphQL query to fetch single user details
-const GET_SINGLE_USER = gql`
+export const GET_SINGLE_USER = gql`
     query getSingleUser($id : ID!){
         user(id : $id){
             _id,

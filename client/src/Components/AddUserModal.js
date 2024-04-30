@@ -48,7 +48,10 @@ const AddUserModal = ({openAddModal,cancelModal}) => {
 
     //Add user Mutation
     const [handleSubmit,{data,loading,error}] = useMutation(ADD_NEW_USER,{
-        refetchQueries:[QUERY_ALL_USERS]
+        refetchQueries:[QUERY_ALL_USERS],
+        onCompleted:()=>{
+            cancelModal(false)
+        }
     })
 
     //fetching all movies and all users

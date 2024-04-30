@@ -7,7 +7,7 @@ import { QUERY_ALL_USERS } from '../pages/UsersList'
 const DELETE_MOVIE = gql`
     mutation deleteMovie($id: ID!){
         deleteMovie(id:$id){
-            id,
+            _id,
             title
         }
     }
@@ -17,7 +17,7 @@ const DeleteMovieModal = ({openDeleteModal,cancelModal,id,title}) => {
 
     const navigate = useNavigate()
     const [handleDelete,{error}] = useMutation(DELETE_MOVIE,{
-        refetchQueries: [{ query: GET_ALL_MOVIES, QUERY_ALL_USERS}],
+        refetchQueries: [{ query: GET_ALL_MOVIES, QUERY_ALL_USERS, }],
         onCompleted:()=>{
             navigate('/movies')
         }

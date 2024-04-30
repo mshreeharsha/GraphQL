@@ -7,7 +7,7 @@ const languageList = ["Hindi","Kannada","English","Telugu","Tamil","Malayalum"]
 const UPDATE_MOVIE = gql`
     mutation updateMvie($updateMovie: UpdateMovieType!, $id: ID!){
         updateMovie(updateMovie : $updateMovie, id : $id){
-            id,
+            _id,
             title
         }
     }
@@ -124,7 +124,7 @@ const EditMovieModal = ({openEditModal,cancelModal, refetch, movie}) => {
                             "languages":selectedLanguages,
                             "inTheaters": Boolean(Number(inTheaters))
                         },
-                        "id":movie.id
+                        "id":movie._id
                     }})
                     refetch();
                 }} 

@@ -24,7 +24,14 @@ export const resolvers = {
         }
     },
     User:{
-
+        async friends(parent){
+            const friends = await UserModel.find({_id:{$in: parent.friends}})
+            return friends
+        },
+        async favouriteMovies(parent){
+            const movies = await MovieModel.find({_id:{$in : parent.favouriteMovies}})
+            return movies
+        }
     },
     Mutation:{
         async addNewUser(_,args){
@@ -68,6 +75,17 @@ export const resolvers = {
             })
             const existingMovie = await MovieModel.findOne({_id: movieId})
             return existingMovie
+        },
+        async deleteMovie(_,args){
+            const movieId = args.id
+            await UserModel.updateMany(
+                {favouriteMovies: movieId},
+                {$pull: {favouriteMovies: movieId}}
+            )
+
+            await MovieModel.findByIdAndDelete(movieId)
+            const allMovies = await MovieModel.find({})
+            return allMovies 
         }
     }
 }

@@ -37,7 +37,7 @@ const EditModal = ({openEditModal,cancelModal,user,refetch}) => {
     const [userName,setUserName] = useState(user?.username)
     const [age,setAge] = useState(user?.age)
 
-    const friends = user?.friends.map((friend)=>(friend.id))
+    const friends = user?.friends.map((friend)=>(friend._id))
     const [selectedFriends,setSelectedFriends] = useState(friends)
 
     const movies = user?.favouriteMovies.map((movie)=>(movie._id))

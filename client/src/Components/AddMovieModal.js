@@ -1,5 +1,6 @@
 import { gql, useMutation} from '@apollo/client'
 import React, { useState } from 'react'
+import { GET_ALL_MOVIES } from '../pages/MoviesList'
 
 
 const languageList = ["Hindi","Kannada","English","Telugu","Tamil","Malayalum"]
@@ -7,13 +8,13 @@ const languageList = ["Hindi","Kannada","English","Telugu","Tamil","Malayalum"]
 const ADD_NEW_MOVIE = gql`
     mutation addNewMovie($newMovie: NewMovieType!){
         addNewMovie(newMovie : $newMovie){
-            id,
+            _id,
             title
         }
     }
 `
 
-const AddMovieModal = ({openAddModal,cancelModal, refetch}) => {
+const AddMovieModal = ({openAddModal,cancelModal}) => {
 
     const [title,setTitle] = useState('')
     const [yearOfRelease,setYearOfRelease] = useState(null)
@@ -27,7 +28,12 @@ const AddMovieModal = ({openAddModal,cancelModal, refetch}) => {
     })
 
     //Add user Mutation
-    const [handleSubmit,{data,loading,error}] = useMutation(ADD_NEW_MOVIE)
+    const [handleSubmit,{data,loading,error}] = useMutation(ADD_NEW_MOVIE,{
+        refetchQueries:[GET_ALL_MOVIES],
+        onCompleted:()=>{
+            cancelModal(false)
+        }
+    })
 
     //Handling Friend Selection
     const handleLanguageSelection = (e)=>{
@@ -122,7 +128,6 @@ const AddMovieModal = ({openAddModal,cancelModal, refetch}) => {
                             "inTheaters": Boolean(Number(inTheaters))
                         }
                     }})
-                    refetch();
                 }} 
                 className='btn btn-info my-2'>Add</button>
         </form>

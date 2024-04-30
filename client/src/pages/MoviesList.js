@@ -8,7 +8,7 @@ import AddMovieModal from '../Components/AddMovieModal';
 export const GET_ALL_MOVIES = gql`
     query getAllMovies{
         movies{
-            id,
+            _id,
             title,
             yearOfRelease,
             languages,
@@ -19,7 +19,7 @@ export const GET_ALL_MOVIES = gql`
 
 const MoviesList = () => {
 
-    const {data,loading,error,refetch} = useQuery(GET_ALL_MOVIES)
+    const {data,loading,error} = useQuery(GET_ALL_MOVIES)
 
     const [openAddModal,setOpenAddModal] = useState(false)
 
@@ -46,7 +46,7 @@ const MoviesList = () => {
 
     if(openAddModal){
         return(
-            <AddMovieModal openAddModal={openAddModal} cancelModal={setOpenAddModal} refetch={refetch} />
+            <AddMovieModal openAddModal={openAddModal} cancelModal={setOpenAddModal}/>
         )
     }
 

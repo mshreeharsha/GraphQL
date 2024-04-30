@@ -9,7 +9,7 @@ import DeleteMovieModal from '../Components/DeleteMovieModal';
 const GET_SINGLE_MOVIE = gql`
     query getSingleMovie($id : ID!){
         movie(id: $id){
-            id,
+            _id,
             title,
             yearOfRelease,
             languages,
